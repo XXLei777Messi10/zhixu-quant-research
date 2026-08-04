@@ -1,0 +1,11 @@
+development_start: "2019-01-01"
+development_end: "2023-12-31"
+baseline_prediction_file: "rolling_predictions.parquet"
+candidate_prediction_file: "rolling_predictions_recent5y_development.parquet"
+training_window_years: 5
+top_k: 20
+acceptance:
+  minimum_rank_ic_improvement: 0.002
+  minimum_top_k_return_improvement: 0.0
+  minimum_positive_years: 4
+  maximum_negative_years: 1

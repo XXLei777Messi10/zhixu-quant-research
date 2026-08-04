@@ -1,0 +1,33 @@
+development_start: "2014-01-01"
+development_end: "2023-12-31"
+run_id: "v2-slot-capped"
+report_file: "decision-attribution-development-v2-slot-capped.json"
+prediction_file: "rolling_predictions_daily_sector.parquet"
+top_pool_size: 20
+new_positions_per_day: 3
+holding_trading_days: 5
+cohort_position_cap: 15
+target_position_weight: 0.05
+staged_entry_fractions: [0.50, 0.25, 0.25]
+stages:
+  - name: "A_horizon_full_entry_gross"
+    staged_entry: false
+    trading_constraints: false
+    risk_gate: false
+  - name: "B_horizon_staged_gross"
+    staged_entry: true
+    trading_constraints: false
+    risk_gate: false
+  - name: "C_horizon_staged_tradable_ungated"
+    staged_entry: true
+    trading_constraints: true
+    risk_gate: false
+  - name: "D_horizon_staged_tradable_gated"
+    staged_entry: true
+    trading_constraints: true
+    risk_gate: true
+production_baseline_name: "E_frozen_production_mirror_gated"
+acceptance:
+  minimum_annualized_return_improvement: 0.01
+  minimum_sharpe_improvement: 0.10
+  maximum_drawdown_deterioration: 0.02

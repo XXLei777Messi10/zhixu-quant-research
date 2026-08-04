@@ -1,0 +1,12 @@
+base_config: "rank_research"
+run_id: "zhixu-rank-calibrated"
+sample_frequency: "weekly_last_trading_day"
+candidate_selection_mode: "fixed"
+fixed_candidate_name: "balanced_sector_liquidity"
+score_calibration:
+  enabled: true
+  bin_count: 10
+  uncertainty_multiplier: 1.0
+prediction_file: "zhixu_rank_calibrated_predictions.parquet"
+report_file: "zhixu-rank-calibrated.json"
+artifact_directory: "zhixu-rank-calibrated"

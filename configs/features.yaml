@@ -1,0 +1,54 @@
+features:
+  - {name: ret_1, formula: "close.pct_change(1)", window: 1, unit: ratio, zh: "1日收益率"}
+  - {name: ret_5, formula: "close.pct_change(5)", window: 5, unit: ratio, zh: "5日收益率"}
+  - {name: ret_10, formula: "close.pct_change(10)", window: 10, unit: ratio, zh: "10日收益率"}
+  - {name: ret_20, formula: "close.pct_change(20)", window: 20, unit: ratio, zh: "20日收益率"}
+  - {name: ret_60, formula: "close.pct_change(60)", window: 60, unit: ratio, zh: "60日收益率"}
+  - {name: excess_ret_1, formula: "ret_1 - benchmark_ret_1", window: 1, unit: ratio, zh: "1日相对沪深300超额收益"}
+  - {name: excess_ret_5, formula: "ret_5 - benchmark_ret_5", window: 5, unit: ratio, zh: "5日相对沪深300超额收益"}
+  - {name: excess_ret_10, formula: "ret_10 - benchmark_ret_10", window: 10, unit: ratio, zh: "10日相对沪深300超额收益"}
+  - {name: excess_ret_20, formula: "ret_20 - benchmark_ret_20", window: 20, unit: ratio, zh: "20日相对沪深300超额收益"}
+  - {name: excess_ret_60, formula: "ret_60 - benchmark_ret_60", window: 60, unit: ratio, zh: "60日相对沪深300超额收益"}
+  - {name: vol_5, formula: "ret_1.rolling(5).std()", window: 5, unit: ratio, zh: "5日收益波动率"}
+  - {name: vol_10, formula: "ret_1.rolling(10).std()", window: 10, unit: ratio, zh: "10日收益波动率"}
+  - {name: vol_20, formula: "ret_1.rolling(20).std()", window: 20, unit: ratio, zh: "20日收益波动率"}
+  - {name: vol_60, formula: "ret_1.rolling(60).std()", window: 60, unit: ratio, zh: "60日收益波动率"}
+  - {name: ma_pos_5, formula: "close / close.rolling(5).mean() - 1", window: 5, unit: ratio, zh: "价格相对5日均线位置"}
+  - {name: ma_pos_10, formula: "close / close.rolling(10).mean() - 1", window: 10, unit: ratio, zh: "价格相对10日均线位置"}
+  - {name: ma_pos_20, formula: "close / close.rolling(20).mean() - 1", window: 20, unit: ratio, zh: "价格相对20日均线位置"}
+  - {name: ma_pos_60, formula: "close / close.rolling(60).mean() - 1", window: 60, unit: ratio, zh: "价格相对60日均线位置"}
+  - {name: ma_slope_5, formula: "ma_5 / ma_5.shift(5) - 1", window: 10, unit: ratio, zh: "5日均线斜率"}
+  - {name: ma_slope_20, formula: "ma_20 / ma_20.shift(5) - 1", window: 25, unit: ratio, zh: "20日均线斜率"}
+  - {name: drawdown_20, formula: "close / close.rolling(20).max() - 1", window: 20, unit: ratio, zh: "20日最大回撤位置"}
+  - {name: drawdown_60, formula: "close / close.rolling(60).max() - 1", window: 60, unit: ratio, zh: "60日最大回撤位置"}
+  - {name: range_5, formula: "(high.rolling(5).max()-low.rolling(5).min())/close", window: 5, unit: ratio, zh: "5日最高最低区间"}
+  - {name: range_20, formula: "(high.rolling(20).max()-low.rolling(20).min())/close", window: 20, unit: ratio, zh: "20日最高最低区间"}
+  - {name: range_60, formula: "(high.rolling(60).max()-low.rolling(60).min())/close", window: 60, unit: ratio, zh: "60日最高最低区间"}
+  - {name: overnight_gap, formula: "open / close.shift(1) - 1", window: 1, unit: ratio, zh: "隔夜跳空"}
+  - {name: intraday_return, formula: "close / open - 1", window: 1, unit: ratio, zh: "日内收益"}
+  - {name: close_location, formula: "(close-low)/(high-low)", window: 1, unit: ratio, zh: "收盘在日内区间的位置"}
+  - {name: volume_chg_1, formula: "volume.pct_change(1)", window: 1, unit: ratio, zh: "成交量1日变化"}
+  - {name: volume_ratio_5, formula: "volume/volume.rolling(5).mean()", window: 5, unit: ratio, zh: "成交量相对5日均量"}
+  - {name: volume_ratio_20, formula: "volume/volume.rolling(20).mean()", window: 20, unit: ratio, zh: "成交量相对20日均量"}
+  - {name: volume_ratio_60, formula: "volume/volume.rolling(60).mean()", window: 60, unit: ratio, zh: "成交量相对60日均量"}
+  - {name: amount_chg_1, formula: "amount.pct_change(1)", window: 1, unit: ratio, zh: "成交额1日变化"}
+  - {name: amount_ratio_5, formula: "amount/amount.rolling(5).mean()", window: 5, unit: ratio, zh: "成交额相对5日均额"}
+  - {name: amount_ratio_20, formula: "amount/amount.rolling(20).mean()", window: 20, unit: ratio, zh: "成交额相对20日均额"}
+  - {name: amount_ratio_60, formula: "amount/amount.rolling(60).mean()", window: 60, unit: ratio, zh: "成交额相对60日均额"}
+  - {name: price_volume_corr_5, formula: "ret_1.rolling(5).corr(log_volume)", window: 5, unit: correlation, zh: "5日量价相关性"}
+  - {name: price_volume_corr_20, formula: "ret_1.rolling(20).corr(log_volume)", window: 20, unit: correlation, zh: "20日量价相关性"}
+  - {name: price_volume_corr_60, formula: "ret_1.rolling(60).corr(log_volume)", window: 60, unit: correlation, zh: "60日量价相关性"}
+  - {name: up_ratio_5, formula: "(ret_1>0).rolling(5).mean()", window: 5, unit: ratio, zh: "5日上涨天数比例"}
+  - {name: up_ratio_20, formula: "(ret_1>0).rolling(20).mean()", window: 20, unit: ratio, zh: "20日上涨天数比例"}
+  - {name: turnover_mean_5, formula: "turnover.rolling(5).mean()", window: 5, unit: ratio, zh: "5日平均换手率"}
+  - {name: turnover_mean_20, formula: "turnover.rolling(20).mean()", window: 20, unit: ratio, zh: "20日平均换手率"}
+  - {name: market_ret_1, formula: "benchmark_close.pct_change(1)", window: 1, unit: ratio, zh: "沪深300一日收益"}
+  - {name: market_ret_20, formula: "benchmark_close.pct_change(20)", window: 20, unit: ratio, zh: "沪深300二十日趋势"}
+  - {name: market_ret_60, formula: "benchmark_close.pct_change(60)", window: 60, unit: ratio, zh: "沪深300六十日趋势"}
+  - {name: market_vol_20, formula: "benchmark_ret_1.rolling(20).std()", window: 20, unit: ratio, zh: "沪深300二十日波动"}
+  - {name: market_vol_60, formula: "benchmark_ret_1.rolling(60).std()", window: 60, unit: ratio, zh: "沪深300六十日波动"}
+  - {name: cs_rank_ret_5, formula: "cross_section_rank(ret_5)", window: 5, unit: percentile, zh: "5日收益横截面排名"}
+  - {name: cs_rank_ret_20, formula: "cross_section_rank(ret_20)", window: 20, unit: percentile, zh: "20日收益横截面排名"}
+  - {name: cs_rank_vol_20, formula: "cross_section_rank(vol_20)", window: 20, unit: percentile, zh: "20日波动横截面排名"}
+  - {name: cs_rank_amount_20, formula: "cross_section_rank(amount_ratio_20)", window: 20, unit: percentile, zh: "20日成交额横截面排名"}
+

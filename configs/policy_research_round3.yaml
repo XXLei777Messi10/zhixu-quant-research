@@ -1,0 +1,51 @@
+development_start: "2014-01-01"
+development_end: "2023-12-31"
+locked_start: "2024-01-01"
+prediction_file: "rolling_predictions_daily_sector.parquet"
+selection:
+  maximum_drawdown_floor: -0.25
+  primary_metric: "annualized_return"
+  tie_breakers:
+    - "sharpe_ratio"
+    - "calmar_ratio"
+locked_acceptance:
+  minimum_annualized_return: 0.05
+  minimum_sharpe_ratio: 0.50
+  maximum_drawdown_floor: -0.25
+  minimum_excess_cumulative_return: -0.05
+candidates:
+  - name: "buffer60_soft75_full_daily_sector"
+    exit_rank: 60
+    initial_entry_fraction: 1.00
+    add_fraction: 0.25
+    risk_weight_scales:
+      market:
+        NORMAL: 1.00
+        CAUTIOUS: 0.90
+        HIGH_RISK: 0.75
+        DATA_UNAVAILABLE: 0.00
+      sector:
+        NORMAL: 1.00
+        CAUTIOUS: 0.90
+        HIGH_RISK: 0.75
+        DATA_UNAVAILABLE: 0.00
+  - name: "buffer60_ungated_full_daily_sector"
+    exit_rank: 60
+    initial_entry_fraction: 1.00
+    add_fraction: 0.25
+    risk_weight_scales: null
+  - name: "buffer80_soft75_full_daily_sector"
+    exit_rank: 80
+    initial_entry_fraction: 1.00
+    add_fraction: 0.25
+    risk_weight_scales:
+      market:
+        NORMAL: 1.00
+        CAUTIOUS: 0.90
+        HIGH_RISK: 0.75
+        DATA_UNAVAILABLE: 0.00
+      sector:
+        NORMAL: 1.00
+        CAUTIOUS: 0.90
+        HIGH_RISK: 0.75
+        DATA_UNAVAILABLE: 0.00

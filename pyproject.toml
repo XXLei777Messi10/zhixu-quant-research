@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zhixu-quant-research"
+version = "0.1.0"
+description = "ZhiXu offline A-share daily quantitative research framework"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = {text = "MIT"}
+dependencies = [
+  "akshare==1.18.79",
+  "baostock==0.9.3",
+  "duckdb==1.5.5",
+  "joblib==1.5.2",
+  "lightgbm==4.7.0",
+  "numpy==1.26.4",
+  "pandas==2.3.3",
+  "pyarrow==25.0.0",
+  "pyqlib==0.9.7",
+  "protobuf==4.25.8",
+  "PyYAML==6.0.2",
+  "scikit-learn==1.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.4.2",
+  "pytest-cov==6.3.0",
+  "ruff==0.12.12",
+  "setuptools==80.9.0",
+  "wheel==0.45.1",
+]
+
+[project.scripts]
+quant = "quant.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --basetemp=.pytest-tmp"
+testpaths = ["tests"]
+markers = [
+  "live: calls free upstream market-data services",
+  "slow: long-running integration or model test",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

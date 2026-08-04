@@ -1,0 +1,52 @@
+research_start: "2010-01-01"
+benchmark_symbol: "SH000300"
+universe: "historical_csi300"
+fallback_universe:
+  min_history_days: 250
+  liquidity_window: 60
+  min_median_amount_cny: 20000000
+  max_symbols: 300
+fetch:
+  timeout_seconds: 20
+  max_retries: 3
+  akshare_requests_per_second: 2
+  baostock_parallelism: 1
+  industry_requests_per_second: 0.5
+  daily_validation: full
+sector_state:
+  lookback_trading_days: 20
+  minimum_members: 3
+  weak_return_quantile: 0.20
+  high_volatility_quantile: 0.80
+  max_mapping_age_days: 7
+  minimum_signal_coverage: 0.95
+  minimum_historical_snapshot_rows: 1000
+storage:
+  min_free_bytes: 8589934592
+  min_free_ratio: 0.20
+quality:
+  price_warn_relative: 0.001
+  price_fail_relative: 0.005
+  volume_warn_relative: 0.005
+  volume_fail_relative: 0.02
+  amount_warn_relative: 0.01
+  amount_fail_relative: 0.03
+  adjusted_jump_fail_relative: 0.35
+  quarantined_records:
+    - source: baostock
+      adjustment: raw
+      symbol: SH601111
+      trade_date: "2013-05-31"
+      expected:
+        open: 5.30
+        high: 5.49
+        low: 5.29
+        close: 5.31
+        volume: 16510349
+      reason: "Baostock has an isolated incorrect open; AKShare and Sohu both report 5.48."
+      evidence_url: "https://q.stock.sohu.com/hisHq?code=cn_601111&start=20130531&end=20130531&stat=1&order=D&period=d&rt=json"
+      verified_value:
+        open: 5.48
+        high: 5.49
+        low: 5.29
+        close: 5.31

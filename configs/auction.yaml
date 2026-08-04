@@ -1,0 +1,30 @@
+rule_version: "auction-v1"
+timezone: "Asia/Shanghai"
+collection_start: "09:15:00"
+observation_only_end: "09:20:00"
+decision_start: "09:24:30"
+auction_end: "09:25:00"
+continuous_market_start: "09:30:00"
+continuous_fallback_end: "09:31:00"
+snapshot_interval_seconds: 15
+max_data_age_seconds: 20
+minimum_snapshot_count: 3
+gap_thresholds:
+  reduce_entry_atr: 0.25
+relative_gap_thresholds:
+  market_weak_atr: -0.50
+price_stability:
+  window_start: "09:20:00"
+  maximum_std_ratio: 0.003
+  maximum_range_ratio: 0.008
+  maximum_last_60s_change: 0.005
+  maximum_direction_reversals: 4
+imbalance_threshold: 0.30
+use_imbalance_filter: false
+fallback_mode: "WAIT_FOR_0930"
+request:
+  timeout_seconds: 5
+  retries: 2
+  backoff_seconds: 2
+  max_concurrency: 2
+  minimum_interval_seconds: 2

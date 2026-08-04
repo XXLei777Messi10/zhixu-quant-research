@@ -1,0 +1,95 @@
+run_id: "rank-buffer-v3"
+simulation_only: true
+prediction_file: "rolling_predictions_daily_sector.parquet"
+report_file: "rank-buffer-development-v3.json"
+artifact_directory: "rank-buffer-v3"
+design_period: ["2014-01-01", "2018-12-31"]
+validation_period: ["2019-01-01", "2023-12-31"]
+initial_cash: 1000000
+benchmark_symbol: "SH000300"
+rebalance_frequency: "weekly_last_trading_day"
+execution_price: "next_trading_day_open"
+lot_size: 100
+maximum_material_positions: 20
+candidate_pool_size: 60
+selection:
+  primary_metric: "sharpe_ratio"
+  tie_breakers: ["annualized_return", "max_drawdown"]
+  maximum_drawdown_floor: -0.50
+  maximum_annual_turnover_gross: 10.0
+validation_acceptance:
+  minimum_annualized_return: 0.0
+  minimum_sharpe_ratio: 0.0
+  maximum_drawdown_floor: -0.50
+  minimum_excess_cumulative_return: 0.0
+candidates:
+  - name: "weekly_top20_drop2_exit30_equal"
+    topk: 20
+    max_drop: 2
+    exit_rank: 30
+    no_trade_weight_band: 0.015
+    exposure_mode: "full"
+    weight_mode: "equal"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: null
+    open_filter_mode: "none"
+  - name: "weekly_top20_drop4_exit30_equal"
+    topk: 20
+    max_drop: 4
+    exit_rank: 30
+    no_trade_weight_band: 0.010
+    exposure_mode: "full"
+    weight_mode: "equal"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: null
+    open_filter_mode: "none"
+  - name: "weekly_top20_drop2_exit30_risk_weighted"
+    topk: 20
+    max_drop: 2
+    exit_rank: 30
+    no_trade_weight_band: 0.015
+    exposure_mode: "full"
+    weight_mode: "conviction_inverse_volatility"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    volatility_floor: 0.12
+    score_weight: 0.65
+    probability_weight: 0.35
+    minimum_conviction: 0.10
+    conviction_power: 1.0
+    volatility_power: 0.50
+    open_filter_mode: "none"
+  - name: "weekly_top20_drop2_exit30_risk_open"
+    topk: 20
+    max_drop: 2
+    exit_rank: 30
+    no_trade_weight_band: 0.015
+    exposure_mode: "full"
+    weight_mode: "conviction_inverse_volatility"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    volatility_floor: 0.12
+    score_weight: 0.65
+    probability_weight: 0.35
+    minimum_conviction: 0.10
+    conviction_power: 1.0
+    volatility_power: 0.50
+    open_filter_mode: "walk_forward_gap_calibration"
+
+open_filter:
+  calibration_universe_top_n: 60
+  gap_bucket_edges_atr: [-999.0, -1.25, -0.50, 0.50, 1.25, 999.0]
+  minimum_exact_samples: 80
+  minimum_market_samples: 160
+  minimum_global_samples: 300
+  standard_error_multiplier: 0.50
+  estimated_round_trip_rate: 0.00172
+  minimum_win_rate: 0.50
+  full_size_win_rate: 0.58
+  minimum_positive_scale: 0.50
+  insufficient_history_scale: 1.00
+  fallback_order: ["market_sector_state", "market_state", "global"]

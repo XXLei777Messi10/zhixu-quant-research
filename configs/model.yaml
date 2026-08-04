@@ -1,0 +1,28 @@
+seed: 42
+label_horizon: 5
+label_entry_offset: 1
+label_exit_offset: 6
+research_start: "2010-01-01"
+first_oos: "2014-01-01"
+locked_test_start: "2024-01-01"
+validation_months: 12
+embargo_trading_days: 5
+minimum_training_years: 3
+retrain_frequency: quarterly
+ensemble:
+  regression_rank_weight: 0.5
+  classification_rank_weight: 0.5
+lightgbm:
+  learning_rate: 0.03
+  num_leaves: 31
+  max_depth: 6
+  min_data_in_leaf: 100
+  feature_fraction: 0.8
+  bagging_fraction: 0.8
+  bagging_freq: 1
+  lambda_l1: 1.0
+  lambda_l2: 1.0
+  max_bin: 127
+  num_boost_round: 500
+  early_stopping_rounds: 50
+  num_threads: 2

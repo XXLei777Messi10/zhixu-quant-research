@@ -1,0 +1,14 @@
+run_id: "multi-horizon-v1"
+development_start: "2014-01-01"
+development_end: "2023-12-31"
+horizons: [5, 10, 20]
+reuse_existing_horizons: [5]
+baseline_prediction_file: "rolling_predictions.parquet"
+candidate_prediction_file: "rolling_predictions_multi_horizon_v1.parquet"
+report_file: "multi-horizon-development-v1.json"
+estimated_round_trip_rate: 0.00172
+top_k: 20
+acceptance:
+  minimum_rank_ic_improvement: 0.002
+  minimum_top_k_return_improvement: 0.0002
+  minimum_positive_years: 7

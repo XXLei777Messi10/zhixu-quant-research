@@ -1,0 +1,38 @@
+development_start: "2014-04-01"
+development_end: "2023-12-31"
+top_k: 20
+candidates:
+  - name: "lgb_regression_only"
+    weights:
+      regression_rank: 1.00
+  - name: "lgb_regression_75_classification_25"
+    weights:
+      regression_rank: 0.75
+      classification_rank: 0.25
+  - name: "lgb_equal"
+    weights:
+      regression_rank: 0.50
+      classification_rank: 0.50
+  - name: "lgb_regression_25_classification_75"
+    weights:
+      regression_rank: 0.25
+      classification_rank: 0.75
+  - name: "lgb_classification_only"
+    weights:
+      classification_rank: 1.00
+  - name: "lgb_regression_60_classification_20_ridge_20"
+    weights:
+      regression_rank: 0.60
+      classification_rank: 0.20
+      ridge_rank: 0.20
+  - name: "lgb_regression_60_classification_20_momentum_20"
+    weights:
+      regression_rank: 0.60
+      classification_rank: 0.20
+      momentum_rank: 0.20
+selection:
+  primary_metric: "mean_daily_rank_ic"
+  tie_breakers:
+    - "top_k_mean_excess_return"
+    - "positive_rank_ic_fraction"
+  minimum_positive_years: 6

@@ -1,0 +1,21 @@
+initial_cash: 1000000
+top_k: 20
+max_weight: 0.10
+authoritative_strategy: production_mirror
+legacy_strategy_label: weekly_top20_fully_invested_model_baseline
+production_variants:
+  - {name: gated_primary, apply_risk_gate: true}
+  - {name: ungated_shadow, apply_risk_gate: false}
+lot_size: 100
+rebalance: weekly_last_trading_day
+commission_rate: 0.0003
+minimum_commission: 5.0
+transfer_fee_rate: 0.00002
+slippage_rate: 0.0005
+stamp_duty:
+  - start: "1900-01-01"
+    end: "2023-08-27"
+    rate: 0.001
+  - start: "2023-08-28"
+    end: "2099-12-31"
+    rate: 0.0005

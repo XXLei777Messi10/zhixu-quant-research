@@ -1,0 +1,126 @@
+base_config: "rank_research"
+run_id: "zhixu-portfolio-baseline"
+baseline_prediction_file: "zhixu_rank_baseline_predictions.parquet"
+calibrated_prediction_file: "zhixu_rank_calibrated_predictions.parquet"
+report_file: "zhixu-portfolio-baseline.json"
+artifact_directory: "zhixu-portfolio-baseline"
+
+design_period: ["2016-01-01", "2019-12-31"]
+validation_period: ["2020-01-01", "2023-12-31"]
+known_stress_period: ["2024-01-01", "2026-07-27"]
+diagnostic_horizon: 10
+diagnostic_topk: [5, 10, 15, 20, 30]
+
+portfolio_selection:
+  minimum_excess_cumulative_return: 0.0
+  maximum_drawdown_floor: -0.35
+  maximum_annual_turnover_gross: 10.0
+
+portfolio_candidates:
+  - name: "zhixu_rank_baseline_top20"
+    model_variant: "baseline"
+    topk: 20
+    max_drop: 2
+    exit_rank: 30
+    no_trade_weight_band: 0.020
+    no_trade_cost_multiple: 8.0
+    exposure_mode: "full"
+    weight_mode: "conviction_inverse_volatility"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    volatility_floor: 0.12
+    score_weight: 0.65
+    probability_weight: 0.35
+    minimum_conviction: 0.10
+    conviction_power: 1.0
+    volatility_power: 0.50
+    open_filter_mode: "none"
+
+  - name: "zhixu_rank_calibrated_top10"
+    model_variant: "calibrated"
+    topk: 10
+    max_drop: 2
+    exit_rank: 15
+    no_trade_weight_band: 0.020
+    no_trade_cost_multiple: 8.0
+    exposure_mode: "full"
+    weight_mode: "conviction_inverse_volatility"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    volatility_floor: 0.12
+    score_weight: 0.65
+    probability_weight: 0.35
+    minimum_conviction: 0.10
+    conviction_power: 1.0
+    volatility_power: 0.50
+    open_filter_mode: "none"
+
+  - name: "zhixu_rank_calibrated_top15"
+    model_variant: "calibrated"
+    topk: 15
+    max_drop: 2
+    exit_rank: 23
+    no_trade_weight_band: 0.020
+    no_trade_cost_multiple: 8.0
+    exposure_mode: "full"
+    weight_mode: "conviction_inverse_volatility"
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    volatility_floor: 0.12
+    score_weight: 0.65
+    probability_weight: 0.35
+    minimum_conviction: 0.10
+    conviction_power: 1.0
+    volatility_power: 0.50
+    open_filter_mode: "none"
+
+  - name: "zhixu_rank_calibrated_dynamic_mean"
+    model_variant: "calibrated"
+    topk: 20
+    max_drop: 5
+    exit_rank: 30
+    ranking_column: "model_score"
+    eligibility_column: "calibrated_excess_return"
+    minimum_eligibility_value: 0.00172
+    no_trade_weight_band: 0.010
+    no_trade_cost_multiple: 8.0
+    exposure_mode: "full"
+    weight_mode: "calibrated_alpha_budget"
+    weight_alpha_column: "calibrated_excess_return"
+    alpha_cost_hurdle: 0.00172
+    alpha_full_size: 0.010
+    alpha_power: 1.0
+    risk_volatility_target: 0.20
+    volatility_power: 1.0
+    volatility_floor: 0.12
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    open_filter_mode: "none"
+
+  - name: "zhixu_rank_calibrated_dynamic_lower_bound"
+    model_variant: "calibrated"
+    topk: 20
+    max_drop: 5
+    exit_rank: 30
+    ranking_column: "model_score"
+    eligibility_column: "calibrated_lower_bound"
+    minimum_eligibility_value: 0.00172
+    no_trade_weight_band: 0.010
+    no_trade_cost_multiple: 8.0
+    exposure_mode: "full"
+    weight_mode: "calibrated_alpha_budget"
+    weight_alpha_column: "calibrated_lower_bound"
+    alpha_cost_hurdle: 0.00172
+    alpha_full_size: 0.010
+    alpha_power: 1.0
+    risk_volatility_target: 0.20
+    volatility_power: 1.0
+    volatility_floor: 0.12
+    sector_position_limit: null
+    max_single_weight: 0.10
+    max_sector_weight: 0.25
+    open_filter_mode: "none"

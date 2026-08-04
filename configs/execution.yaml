@@ -1,0 +1,70 @@
+rule_version: "execution-v2-production-mirror"
+simulation_only: true
+daily_open_simulation:
+  enabled: true
+  initial_cash: 1000000
+  primary_variant: "gated"
+  shadow_variant: "ungated"
+  primary_plan_directory: "execution-plans"
+  shadow_plan_directory: "shadow-execution-plans"
+  execution_price: "open"
+  liquidity_source: "previous_trading_day_volume"
+portfolio_policy:
+  candidate_count: 20
+  candidate_refresh: "weekly_last_trading_day"
+  bootstrap_when_pool_missing: true
+  target_position_weight: 0.05
+  max_gross_exposure: 0.80
+  minimum_cash_reserve: 0.20
+  max_sector_exposure: 0.20
+  max_positions: 16
+  comparison_accounts:
+    primary: "gated"
+    shadow: "ungated"
+    manual: "manual"
+initial_entry_fraction: 0.50
+reduced_entry_fraction: 0.25
+add_fraction: 0.25
+max_single_position: 0.10
+max_daily_new_positions: 5
+max_daily_add_count: 1
+max_portfolio_turnover: 0.30
+commission_rate: 0.0003
+minimum_commission: 5.0
+transfer_fee_rate: 0.00002
+sell_tax_rate:
+  - {start: "1900-01-01", end: "2023-08-27", rate: 0.001}
+  - {start: "2023-08-28", end: "2099-12-31", rate: 0.0005}
+slippage_rate: 0.0005
+fallback_slippage_rate: 0.0010
+lot_size: 100
+max_liquidity_participation: 0.01
+price_rounding: 0.01
+formal_mode: false
+require_walk_forward_calibration: true
+calibration:
+  source: "engineering_fallback_requires_walk_forward_calibration"
+  lookback_years: 3
+  minimum_peer_samples: 1000
+  minimum_oos_model_score: 0.90
+  quantiles:
+    entry_low: 0.20
+    entry_high: 0.70
+    chase: 0.90
+    add: 0.50
+    favorable: 0.70
+    favorable_high: 0.90
+    adverse: 0.80
+    hard_exit: 0.95
+  entry_low_atr: 0.40
+  entry_high_atr: 0.25
+  add_atr: 0.55
+  chase_atr: 0.65
+  reduce_atr: 1.00
+  invalidation_atr: 1.10
+  hard_exit_atr: 1.75
+  favorable_quantile: 0.70
+  adverse_quantile: 0.80
+  reduced_entry_multiplier: 0.50
+  valid_trading_days: 1
+historical_daily_conflict_policy: "OPEN_ONLY"

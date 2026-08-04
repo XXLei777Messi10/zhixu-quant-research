@@ -1,0 +1,1 @@
+"""Immutable signal archival."""

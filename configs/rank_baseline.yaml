@@ -1,0 +1,8 @@
+base_config: "rank_research"
+run_id: "zhixu-rank-baseline"
+sample_frequency: "weekly_last_trading_day"
+candidate_selection_mode: "fixed"
+fixed_candidate_name: "balanced_sector_liquidity"
+prediction_file: "zhixu_rank_baseline_predictions.parquet"
+report_file: "zhixu-rank-baseline.json"
+artifact_directory: "zhixu-rank-baseline"

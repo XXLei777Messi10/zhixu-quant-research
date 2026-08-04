@@ -1,0 +1,8 @@
+timezone: "Asia/Shanghai"
+daily_run_time: "21:00"
+threads: 2
+memory_high_bytes: 3006477107
+memory_max_bytes: 3435973837
+swap_max_bytes: 1073741824
+signal_conflict_policy: revision
+log_level: INFO

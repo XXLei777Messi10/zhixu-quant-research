@@ -1,0 +1,148 @@
+run_id: "zhixu-rank-research"
+simulation_only: true
+features_file: "features.parquet"
+bars_file: "bars.parquet"
+sector_metadata_file: "rolling_predictions_daily_sector.parquet"
+baseline_prediction_file: "rolling_predictions_daily_sector.parquet"
+prediction_file: "zhixu_rank_research_predictions.parquet"
+report_file: "zhixu-rank-research.json"
+artifact_directory: "zhixu-rank-research"
+
+history_start: "2010-01-01"
+research_start: "2014-01-01"
+outer_start: "2016-01-01"
+outer_end: "2026-07-27"
+development_end: "2023-12-31"
+known_stress_start: "2024-01-01"
+horizons: [5, 10, 20]
+selection_label_horizon: 10
+relevance_grades: 5
+minimum_cross_section: 100
+inner_selection_months: 12
+early_stopping_months: 12
+embargo_trading_days: 21
+minimum_training_years: 3
+top_k: 20
+seed: 42
+
+ranker:
+  objective: "lambdarank"
+  metric: "ndcg"
+  eval_at: [10, 20]
+  lambdarank_truncation_level: 40
+  learning_rate: 0.03
+  num_leaves: 31
+  max_depth: 6
+  min_data_in_leaf: 100
+  feature_fraction: 0.80
+  bagging_fraction: 0.80
+  bagging_freq: 1
+  lambda_l1: 1.0
+  lambda_l2: 2.0
+  max_bin: 127
+  num_threads: 3
+  num_boost_round: 500
+  early_stopping_rounds: 50
+
+candidates:
+  - name: "rank5_global"
+    horizon_weights: {5: 1.00, 10: 0.00, 20: 0.00}
+    neutralization: "global"
+  - name: "short_blend_global"
+    horizon_weights: {5: 0.50, 10: 0.35, 20: 0.15}
+    neutralization: "global"
+  - name: "balanced_sector_liquidity"
+    horizon_weights: {5: 0.25, 10: 0.50, 20: 0.25}
+    neutralization: "sector_liquidity"
+  - name: "persistent_sector_liquidity"
+    horizon_weights: {5: 0.15, 10: 0.35, 20: 0.50}
+    neutralization: "sector_liquidity"
+
+inner_selection:
+  minimum_mean_daily_rank_ic: 0.0
+  minimum_top_k_mean_excess_return: 0.0
+  minimum_positive_rank_ic_fraction: 0.48
+  primary_metric: "mean_daily_rank_ic"
+  tie_breakers: ["top_k_mean_excess_return", "rank_ic_information_ratio"]
+
+score_mapping:
+  probability_floor: 0.25
+  probability_ceiling: 0.75
+  excess_return_scale: 0.04
+
+benchmark_symbol: "SH000300"
+initial_cash: 1000000
+lot_size: 100
+maximum_material_positions: 20
+corporate_actions:
+  - action_id: "2017-02-27_SH600005_TO_SH600019"
+    effective_date: "2017-02-27"
+    source_symbol: "SH600005"
+    target_symbol: "SH600019"
+    share_ratio: 0.56
+    fractional_share_treatment: "floor_to_whole_share_and_cash_at_target_open"
+    reference_urls:
+      - "https://www.sse.com.cn/disclosure/announcement/listing/c/c_20170208_4235564.shtml"
+      - "https://www.sse.com.cn/aboutus/publication/actofcourt/law/list/c/10643465/files/c6b3fcde73f646f593fd25eba8a9f6e1.pdf"
+terminal_events:
+  - event_id: "2023-07-13_SZ002411_TERMINATED"
+    effective_date: "2023-07-13"
+    symbol: "SZ002411"
+    recovery_rate: 0.0
+    reason: "CONSERVATIVE_ZERO_RECOVERY_AFTER_EXCHANGE_TERMINATION"
+    reference_urls:
+      - "https://www.szse.cn/disclosure/notice/general/t20230712_601720.html"
+  - event_id: "2024-10-11_SZ000413_TERMINATED"
+    effective_date: "2024-10-11"
+    symbol: "SZ000413"
+    recovery_rate: 0.0
+    reason: "CONSERVATIVE_ZERO_RECOVERY_AFTER_EXCHANGE_TERMINATION"
+    reference_urls:
+      - "https://static.cninfo.com.cn/finalpage/2024-10-11/1221359894.PDF"
+  - event_id: "2021-06-01_SH600485_TERMINATED"
+    effective_date: "2021-06-01"
+    symbol: "SH600485"
+    recovery_rate: 0.0
+    reason: "CONSERVATIVE_ZERO_RECOVERY_AFTER_EXCHANGE_TERMINATION"
+    reference_urls:
+      - "https://www.sse.com.cn/disclosure/announcement/listing/stock/c/c_20210525_81710479.shtml"
+  - event_id: "2020-05-26_SH600074_TERMINATED"
+    effective_date: "2020-05-26"
+    symbol: "SH600074"
+    recovery_rate: 0.0
+    reason: "CONSERVATIVE_ZERO_RECOVERY_AFTER_EXCHANGE_TERMINATION"
+    reference_urls:
+      - "https://www.sse.com.cn/disclosure/announcement/listing/stock/c/c_20200401_77597976.shtml"
+      - "https://static.sse.com.cn/disclosure/bond/announcement/company/c/new/2022-04-27/155539_20220427_1_jgefhpEx.pdf"
+open_filter:
+  estimated_round_trip_rate: 0.00172
+portfolio:
+  name: "zhixu_rank_weekly_top20"
+  topk: 20
+  max_drop: 2
+  exit_rank: 30
+  no_trade_weight_band: 0.020
+  no_trade_cost_multiple: 8.0
+  exposure_mode: "full"
+  weight_mode: "conviction_inverse_volatility"
+  sector_position_limit: null
+  max_single_weight: 0.10
+  max_sector_weight: 0.25
+  volatility_floor: 0.12
+  score_weight: 0.65
+  probability_weight: 0.35
+  minimum_conviction: 0.10
+  conviction_power: 1.0
+  volatility_power: 0.50
+  open_filter_mode: "none"
+
+research_acceptance:
+  minimum_development_mean_rank_ic: 0.01
+  minimum_development_positive_ic_years: 5
+  minimum_development_excess_cumulative_return: 0.0
+  maximum_development_drawdown_floor: -0.35
+  minimum_stress_mean_rank_ic: 0.0
+  minimum_stress_excess_cumulative_return: -0.10
+  maximum_stress_drawdown_floor: -0.35
+  maximum_annual_turnover_gross: 10.0
+  maximum_missing_data_positions: 0
