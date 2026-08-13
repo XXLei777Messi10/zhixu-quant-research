@@ -32,3 +32,9 @@ jobs:
 
       - name: Run offline tests
         run: python -m pytest -m "not live and not slow"
+
+      - name: Run Quick Start smoke test
+        run: |
+          python examples/minimal_synthetic.py | tee quick-start-output.txt
+          grep -q "status: ok" quick-start-output.txt
+          grep -q "live_data: false" quick-start-output.txt
