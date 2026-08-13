@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest a reproducible research or engineering improvement
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What research or engineering problem would this address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change and its expected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducibility
+    attributes:
+      label: Reproducibility and validation
+      description: How could this be tested without relying on live data or a private account?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This proposal does not require publishing credentials, private data, or production-only configuration.
+          required: true
+        - label: This proposal is not a promise of investment performance.
+          required: true
