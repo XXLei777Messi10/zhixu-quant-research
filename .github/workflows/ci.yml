@@ -38,3 +38,14 @@ jobs:
           python examples/minimal_synthetic.py | tee quick-start-output.txt
           grep -q "status: ok" quick-start-output.txt
           grep -q "live_data: false" quick-start-output.txt
+
+      - name: Build and validate package artifacts
+        run: |
+          rm -rf dist package-smoke-env
+          python -m build
+          python -m twine check dist/*
+          python -m venv package-smoke-env
+          package-smoke-env/bin/python -m pip install --upgrade pip
+          package-smoke-env/bin/python -m pip install --no-deps dist/*.whl
+          package-smoke-env/bin/python -c "import quant; assert quant.__version__ == '0.1.1'"
+          package-smoke-env/bin/quant --help
