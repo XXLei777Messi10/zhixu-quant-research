@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a reproducible problem in the public research baseline
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not include API keys, account information, private data, or production configuration.
+
+  - type: input
+    id: summary
+    attributes:
+      label: What happened?
+      description: Give a short and specific description of the problem.
+      placeholder: The data validation command fails with ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include the smallest command sequence or code sample that reproduces the issue.
+      placeholder: |
+        1. Install ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Include operating system, Python version, and package version.
+      placeholder: Windows 11, Python 3.12.x, public baseline v0.1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste sanitized logs only. Remove secrets and personal data.
+      render: text
