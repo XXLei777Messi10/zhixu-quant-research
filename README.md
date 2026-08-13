@@ -12,6 +12,10 @@
 
 本仓库只维护公开研究基线，不是生产交易系统，也不连接券商、不发送真实订单、不调用付费模型 API。公开基线与任何生产模型、主账户和内部研究线保持隔离。
 
+> **先看这里：5 分钟跑通一个不含未来函数的 A 股日频回测骨架。**
+>
+> 你会看到：固定合成数据的最小回测、交易成本敏感性对比表，以及每周一篇可复核的 Research Note。示例不下载行情、不需要 API 密钥，也不把模拟结果包装成收益承诺。
+
 ## 5 分钟 Quick Start
 
 要求 64 位 Python 3.12。
@@ -53,6 +57,27 @@ live_data: false
 ~~~
 
 输出中的交易数量只用于验证模拟器确实运行，不是策略表现指标。
+
+## 交易成本敏感性 Demo
+
+这个 Demo 用固定的合成毛损益和换手率，比较零成本、基准成本和压力成本三种假设。它展示的是回测口径如何影响研究结论，不是任何真实策略或市场收益。
+
+~~~bash
+python examples/cost_sensitivity.py
+~~~
+
+~~~text
+ZhiXu transaction-cost sensitivity demo
+data_source: deterministic synthetic
+status: ok
+scenario       gross_pnl_bps  total_cost_bps  net_pnl_bps
+zero_cost               76.0             0.0         76.0
+base_cost               76.0            28.8         47.2
+stress_cost             76.0            57.6         18.4
+live_data: false
+~~~
+
+完整推导见 [Research Note 0005](docs/research-notes/0005-transaction-cost-sensitivity.md)。
 
 ## 运行离线测试
 
