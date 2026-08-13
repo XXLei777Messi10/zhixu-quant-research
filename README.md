@@ -159,3 +159,31 @@ Research Notes 位于 [docs/research-notes](docs/research-notes/)。每篇文章
 ## 许可证
 
 源代码按 MIT 许可证提供。许可证中的无担保及责任限制条款不替代适用法律，也不构成法律意见。
+
+## 构建 Python package
+
+当前仓库已提供标准 Python package 配置。要在本地构建并检查 wheel 与源码包：
+
+~~~bash
+python -m pip install -e ".[dev]"
+python -m build
+python -m twine check dist/*
+~~~
+
+构建产物位于 dist/。安装测试建议使用干净的 Python 3.12 虚拟环境：
+
+~~~bash
+python -m venv package-smoke-env
+package-smoke-env/bin/python -m pip install --no-deps dist/*.whl
+package-smoke-env/bin/quant --help
+~~~
+
+Windows PowerShell 对应命令为：
+
+~~~powershell
+py -3.12 -m venv package-smoke-env
+package-smoke-env\Scripts\python.exe -m pip install --no-deps (Get-ChildItem dist\*.whl).FullName
+package-smoke-env\Scripts\quant.exe --help
+~~~
+
+这里的安装检查只验证公开代码包的可安装性，不代表模型效果，也不会下载行情数据。
