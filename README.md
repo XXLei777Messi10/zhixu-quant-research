@@ -12,6 +12,20 @@
 
 本仓库只维护公开研究基线，不是生产交易系统，也不连接券商、不发送真实订单、不调用付费模型 API。公开基线与任何生产模型、主账户和内部研究线保持隔离。
 
+
+## 当前公开模型：v0.2.0
+
+当前公开 Release 对应：
+
+~~~text
+配置：configs/rank_buffer_final_accounting_repair.yaml
+模型线：rank-buffer-v4-locked-data-accounting-repair
+~~~
+
+这一版保留 Top20 周度排序框架，并加入排名缓冲、次日开盘模拟执行、轻量开盘过滤，以及历史成分数据和账户份额核算修复。它是较早的公开研究基线，不是主账户生产模型，也不代表生产模型的镜像或收益表现。
+
+完整说明见 [v0.2.0 Release Note](docs/releases/v0.2.0.md) 和 [PUBLIC_BASELINE.md](PUBLIC_BASELINE.md)。
+
 > **先看这里：5 分钟跑通一个不含未来函数的 A 股日频回测骨架。**
 >
 > 你会看到：固定合成数据的最小回测、交易成本敏感性对比表，以及每周一篇可复核的 Research Note。示例不下载行情、不需要 API 密钥，也不把模拟结果包装成收益承诺。
